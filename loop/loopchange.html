@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="../style.css" media="screen" title="no title">
+  </head>
+  <body>
+  <div class="" id="wrapper">
+    <div class="" v-for="plan in plans">
+      <plan :plan="plan" :plans="plans"></plan>
+    </div>
+  </div>
+
+  <template id=plan-template>
+    <div>
+      <span>{{plan.name}}</span> <span>{{plan.price}}$ / month</span>
+      <button  @click="SetActivePlan(this)">{{plan.active}}</button>
+    </div>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js" charset="utf-8"></script>
+  <script type="text/javascript">
+
+      var currentind = 0;
+      Vue.component('plan', {
+          template: '#plan-template',
+          props:['plan', 'plans'],
+          methods: {
+            SetActivePlan: function(planloop){
+              this.plans.forEach(function(planloop){
+                  planloop.active = 'inaktiv';
+              });
+              this.plan.active = 'aktiv';
+            }
+          },
+      })
+
+      new Vue({
+          el: '#wrapper',
+          data: {
+            plans: [
+              { name : 'Enterprise', price : 50, active :'inaktiv'},
+              { name : 'Pro', price : 100, active :'inaktiv'},
+              { name : 'Advanced', price : 200, active :'inaktiv'},
+            ],
+          },
+        })
+
+    </script>
+  </body>
+</html>
